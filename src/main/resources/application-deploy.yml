@@ -1,0 +1,80 @@
+server:
+  port: 4044
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 5MB
+  application:
+    name: drlove-app
+  datasource:
+    # Connexion à la base de données PostgreSQL (avec pgbouncer pour de meilleures performances)
+    url: jdbc:postgresql://192.99.42.107:5432/drlove_db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      idle-timeout: 30000
+      connection-test-query: SELECT 1
+      minimum-idle: 5
+      maximum-pool-size: 10
+      connection-timeout: 20000
+      max-lifetime: 1200000
+      auto-commit: true
+
+  jpa:
+    # Configuration de JPA avec Hibernate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        schema_update:
+          unique_constraint_strategy: SKIP
+        check_nullability: false
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sibpro61@gmail.com
+    password: qhsz ghtv kfdf cxf
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+  email:
+    from: sibpro61@gmail.com
+
+# Configurations JWT
+app:
+  url:
+    frontend: http://localhost:3000
+  cors:
+    allowedOrigins:
+      - http://localhost:3000
+      - https://votreappli.com
+
+  jwtSecret: U2FsdGVkX1+XrCkUhz7gU6SzP4E9dyDq0j6f6vOwA1jP4Xl6H3oc61hZGz7Fx0T7
+  jwtExpirationInMs: 86400000
+  refreshTokenExpirationInDays: 30
+
+# Configurations des services sociaux
+social:
+  google:
+    userInfoUrl: https://www.googleapis.com/oauth2/v3/userinfo
+  facebook:
+    userInfoUrl: https://graph.facebook.com/me
+  apple:
+    clientId: com.votreappli.client
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
+file:
+  upload-dir: ./uploads
+
